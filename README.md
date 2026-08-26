@@ -1,101 +1,182 @@
-# Deal Room Assistant - Low-Code Legal AI Chatbot Demo
+# Deal Room Assistant
 
-A working chatbot demo built to prepare for the **Manager of AI Transformation** role at Mayer Brown. It answers questions about a fictional M&A due-diligence matter, summarizing documents, checking review status, explaining AI-flagged risks, and routing items for attorney approval using a **low-code, config-driven design that mirrors how Microsoft Copilot Studio structures a real agent.**
+A governed, low-code legal AI chatbot prototype that I designed and implemented to demonstrate the complete lifecycle of an AI transformation use case, from problem discovery and requirements through working software, testing, governance and adoption planning.
 
-**[▶ Live demo](https://shalineesinghvit12-source.github.io/deal-room-assistant/)**
+The assistant supports a fictional M&A due-diligence matter named **Project Falcon**. It summarizes documents, reports review status, explains configured risk flags, maintains conversational context and routes selected items into a simulated attorney-review state.
+
+**[Open the live demonstration](https://shalineesinghvit12-source.github.io/deal-room-assistant/)**
 
 ![Deal Room Assistant screenshot](docs/screenshot.png)
 
----
+## Executive summary
 
-## Why this exists
+Deal teams can spend substantial time moving between document repositories, trackers, email and chat to answer recurring questions. I used that problem to design a focused assistant with four controlled capabilities:
 
-The role's job description names a specific stack Microsoft Copilot, the M365 ecosystem, Power Automate, Power Apps, and legal platforms like iManage, Intapp, and Litera with an explicit emphasis on **low-code delivery**, not custom AI engineering. This project is a portable way to demonstrate that same design pattern outside a Microsoft tenant, since a real Copilot Studio agent can't be publicly shared or opened in a browser.
+1. Summarize a known matter document.
+2. Show document-level or matter-wide review status.
+3. Explain why a configured clause or document was risk-flagged.
+4. Route a selected item for attorney review.
 
-It is **not** a production system, and it deliberately avoids anything that would misrepresent it as one no real client data, no real firm name in the data layer, no vector database, no backend server, and no claim that this *is* Copilot Studio. It's a static, client-side illustration of the same architecture, built to be read, run, and discussed in about five minutes.
+I deliberately kept the public implementation transparent and portable. It runs entirely in the browser using synthetic data and deterministic conversation matching. The target enterprise design maps the same experience to Microsoft Copilot Studio, Teams, SharePoint or Dataverse, Power Automate, Entra ID and governed audit controls.
 
-## What "low-code" means in this repo
+## My role and contribution
 
-The whole point of the project is the separation between **logic that's declared as data** and **code that interprets it** — the same separation Copilot Studio enforces between its topic canvas and its underlying engine:
+I owned the project as a combined business analyst, product owner and prototype implementer. My work included:
 
-| File | Role | Analogous to (in production) |
-|---|---|---|
-| `documents.js` | The data — matter documents, summaries, risk flags | SharePoint / Dataverse, via a live connector |
-| `topics.js` | The conversation design — trigger phrases, topic labels | Copilot Studio's topic canvas |
-| `engine.js` | A thin, generic interpreter — matches input to topics | Copilot Studio's built-in NLU / orchestration engine |
-| `index.html` + `style.css` | The chat surface | Teams / a Copilot Studio channel |
+- Defining the problem, scope, personas, value hypothesis and pilot measures.
+- Translating stakeholder needs into requirements, use cases and user stories.
+- Building the requirements traceability matrix.
+- Designing the conversational journey and exception behavior.
+- Implementing the working HTML, CSS and JavaScript chatbot.
+- Creating the synthetic document, status and risk model.
+- Testing core journeys, negative paths and contextual follow-ups.
+- Designing the Microsoft 365 target architecture.
+- Defining governance, security, approval and audit controls.
+- Preparing the delivery roadmap, adoption plan and operating model.
 
-To add a new conversational capability, you edit `topics.js` (and optionally `documents.js`) — `engine.js` shouldn't need to change. That's the same authoring experience a business analyst has in Copilot Studio: design the conversation, not the code.
+## Implemented capabilities
 
-## Architecture
+| Capability | Evidence |
+| --- | --- |
+| Conversational entry point | Free-text input, keyboard submission and quick replies |
+| Document summaries | Controlled summaries and key terms from `documents.js` |
+| Review-status visibility | Named-document and matter-wide status responses |
+| Risk explanation | Configured severity, title and rationale |
+| Context continuity | Follow-ups using “this,” “it” and “that” resolve to the previous document |
+| Clarification | The assistant requests a document when none can be resolved |
+| Safe fallback | Unsupported requests return a defined capability menu |
+| Human-in-the-loop pattern | Escalation changes the demo status to pending attorney review |
+| Governance notice | Persistent warning that attorney review is required |
+| Portable deployment | Static GitHub Pages implementation with no external dependencies |
+
+## End-to-end delivery evidence
+
+| Lifecycle stage | Repository artifact |
+| --- | --- |
+| Problem framing and business value | [Project Charter and Business Case](docs/01-PROJECT-CHARTER-AND-BUSINESS-CASE.md) |
+| Stakeholders, scope and measures | [Project Charter and Business Case](docs/01-PROJECT-CHARTER-AND-BUSINESS-CASE.md) |
+| Requirements, use cases and user stories | [Requirements, Use Cases and User Stories](docs/02-REQUIREMENTS-USE-CASES-AND-USER-STORIES.md) |
+| Requirements traceability | [Requirements Traceability Matrix](docs/03-REQUIREMENTS-TRACEABILITY-MATRIX.md) |
+| Solution and exception design | [Solution Design and Implementation Record](docs/04-SOLUTION-DESIGN-AND-IMPLEMENTATION.md) |
+| Technical architecture | [Demo and Production Architecture](docs/ARCHITECTURE.md) |
+| UAT and negative testing | [UAT, Test Strategy and Results](docs/05-UAT-TEST-STRATEGY-AND-RESULTS.md) |
+| Governance, security and RACI | [Governance, Risk, Security and Controls](docs/06-GOVERNANCE-RISK-SECURITY-AND-CONTROLS.md) |
+| Roadmap, adoption and operations | [Delivery Roadmap, Change and Operating Model](docs/07-DELIVERY-ROADMAP-CHANGE-AND-OPERATING-MODEL.md) |
+| Interview presentation and evidence boundary | [Portfolio Evidence and Interview Guide](docs/08-PORTFOLIO-EVIDENCE-AND-INTERVIEW-GUIDE.md) |
+
+## Demonstration journey
+
+Try these questions in sequence:
+
+1. **“Summarize the MSA.”**
+2. **“Explain the risk flag on this.”**
+3. **“What is still pending on Project Falcon?”**
+4. **“Send the CTO employment agreement for approval.”**
+5. Enter an unsupported question to show the safe fallback.
+
+This sequence demonstrates grounding in controlled records, context continuity, matter status, human escalation and failure-safe behavior.
+
+## Low-code design pattern
+
+I separated declarative configuration from generic execution logic. A business analyst can add trigger phrases or maintain document content without rewriting the complete application.
+
+| File | Responsibility | Production equivalent |
+| --- | --- | --- |
+| `documents.js` | Fictional matter documents, summaries, terms, statuses and risk flags | Permission-scoped SharePoint or Dataverse records |
+| `topics.js` | Conversation topics, trigger phrases and labels | Copilot Studio topics and orchestration instructions |
+| `engine.js` | Intent matching, document resolution, context and routing | Copilot Studio orchestration and agent tools |
+| `index.html` and `style.css` | Conversational user experience | Copilot Studio agent published to Teams |
+| GitHub Pages | Public portfolio hosting | Governed Microsoft 365 tenant |
+
+To add a new conversational capability, the topic and document configuration can be extended independently of the interface. This reflects the maintainability principle behind low-code platforms.
+
+## Implemented workflow
 
 ```mermaid
 flowchart TD
-    A[User types or clicks a quick reply] --> B[engine.js: matchTopic]
-    B --> C{Topic matched?}
-    C -- No --> D[Fallback menu of all topics]
-    C -- Yes --> E[engine.js: findDocument / pronoun continuity]
-    E --> F[Look up document in documents.js]
-    F --> G[Render response + follow-up quick replies]
-    G --> A
+    A["User message or quick reply"] --> B["Match configured topic"]
+    B --> C{"Topic recognized?"}
+    C -->|No| D["Return safe capability menu"]
+    C -->|Yes| E["Resolve document and context"]
+    E --> F{"Document required and found?"}
+    F -->|No| G["Request document selection"]
+    F -->|Yes| H["Return controlled response"]
+    H --> I{"Escalation requested?"}
+    I -->|Yes| J["Set simulated attorney-review status"]
+    I -->|No| K["Offer contextual next actions"]
 ```
 
-In production, this becomes:
+## Microsoft 365 target workflow
 
 ```mermaid
 flowchart TD
-    A[Attorney asks Copilot Studio agent a question in Teams] --> B[Copilot Studio topic matching / generative answers]
-    B --> C[SharePoint / Dataverse connector — live matter data]
-    C --> D[Power Automate flow, if action needed: e.g. route for approval]
-    D --> E[Teams approval card + audit log]
-    E --> F[Response returned to attorney in Teams]
+    A["Attorney asks agent in Teams"] --> B["Copilot Studio orchestration"]
+    B --> C["Permission-scoped SharePoint or Dataverse knowledge"]
+    C --> D["Grounded response with source references"]
+    D --> E{"Human approval required?"}
+    E -->|Yes| F["Power Automate approval and Teams card"]
+    F --> G["Decision and audit record"]
+    E -->|No| H["Return controlled answer"]
 ```
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full production mapping, including how this connects to the Power Automate flows and SharePoint tracking list from the companion implementation guide.
+A production implementation would also include Entra ID authentication, matter-level access, data-loss prevention, retention, audit telemetry, connector monitoring and documented support ownership.
 
-## Try it
+## Exception handling
 
-Ask (or click a quick reply for) things like:
+The implemented prototype:
 
-- *"Summarize the MSA"*
-- *"What's still pending on Project Falcon?"*
-- *"Why was section 14.2 flagged?"*
-- *"Send the CTO employment agreement for approval"*
+- Requests clarification when no document can be resolved.
+- Maintains pending context when the user is selecting a document.
+- Returns a safe task menu for unsupported requests.
+- Performs no action for an empty message.
+- Keeps attorney-review expectations visible.
 
-The bot remembers the last document you discussed, so a follow-up like *"explain the risk flag on this"* resolves correctly without repeating the document name.
+The target design adds source-availability checks, authorization failures, connector retries, duplicate-request prevention, approval timeouts, operational alerts and a fail-safe response when grounding is insufficient.
 
-## Running it locally
+## Run locally
 
-No build step, no dependencies, no server required.
+No build process, package installation or backend is required.
 
 ```bash
-git clone https://github.com/<your-username>/mayer-brown-deal-room-assistant.git
-cd mayer-brown-deal-room-assistant
-open index.html   # or just double-click the file
+git clone https://github.com/shalineesinghvit12-source/deal-room-assistant.git
+cd deal-room-assistant
 ```
 
-## Publishing to GitHub Pages
+Open `index.html` in a modern browser.
 
-1. Push this repo to GitHub (see the commands in the accompanying setup notes).
-2. In the repo, go to **Settings → Pages**.
-3. Under **Source**, select **Deploy from a branch**, branch `main`, folder `/ (root)`, then **Save**.
-4. GitHub will publish it at `https://<your-username>.github.io/mayer-brown-deal-room-assistant/` within a minute or two.
-5. Come back and swap the **Live demo** link at the top of this README for that URL.
+## Architecture boundary
 
-## Relationship to the rest of the pilot
+This repository contains a working browser prototype, not a production legal system.
 
-This chatbot is the conversational front end for the same **Deal Room Intelligence Assistant** pilot described in the full program proposal — the same fictional matter (Project Falcon), the same documents, the same risk flags. The companion materials cover the pieces this repo doesn't:
+- All people, documents, organizations, risks and matter information are fictional.
+- The implementation uses deterministic trigger-phrase matching, not a language model.
+- The escalation step simulates status routing; it does not send a live Teams approval.
+- Authentication, permission scoping and audit logging are documented as target controls, not claimed as deployed.
+- The assistant does not provide legal advice and does not replace source-document or attorney review.
 
-- **Program proposal** — business case, roadmap, KPIs, governance.
-- **Copilot & Power Automate implementation guide** — the real flow logic (trigger/action names, sample flow JSON) this demo's `engine.js` is standing in for.
-- **Step-by-step setup guide** — click-by-click instructions to build the actual SharePoint + Power Automate + Copilot Studio version in a real tenant.
+This boundary is intentional. It allows the implementation to be inspected and demonstrated publicly without exposing confidential data or overstating platform experience.
 
-## Limitations, stated plainly
+## Technology and delivery skills demonstrated
 
-- All data is fictional and hard-coded in `documents.js` — nothing here reads from a real system.
-- The trigger-phrase matching in `engine.js` is intentionally simple; Copilot Studio's real NLU and generative answers are considerably more capable.
-- There is no authentication, no permission scoping, and no audit logging here — Section 9 of the implementation guide covers how those are enforced in the real build.
+- Business analysis and requirements engineering
+- Stakeholder and process analysis
+- Use cases, user stories and acceptance criteria
+- Requirements traceability matrix
+- UAT and negative-path testing
+- Legal AI use-case design
+- Conversational UX and low-code patterns
+- HTML, CSS and JavaScript
+- Copilot Studio and Power Automate architecture
+- SharePoint, Dataverse, Teams and Entra ID integration design
+- Human-in-the-loop governance
+- Risk, security, adoption and operating-model design
+
+## Author
+
+**Shalinee Singh**
+
+I created this project as an independent professional portfolio implementation. It is not affiliated with, commissioned by or deployed at any law firm or client organization.
 
 ## License
 
-MIT — see [`LICENSE`](LICENSE). Sample content is fictional and provided for demonstration purposes only.
+MIT License. See [LICENSE](LICENSE).
