@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Deal Room Assistant — Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A low-code, config-driven legal AI chatbot demo aligned to the Manager of AI Transformation role — mirrors a Microsoft Copilot Studio topic-based agent design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="chat-shell">
+  <div class="chat-header">
+    <div class="title">Deal Room <span>Assistant</span></div>
+    <div class="sub">PROJECT FALCON · LOW-CODE DEMO (COPILOT STUDIO PATTERN)</div>
+  </div>
+  <div class="gov-strip">AI-generated answers require attorney review before reliance.</div>
+  <div class="chat-window" id="chatWindow"></div>
+  <div class="chat-input-row">
+    <input id="chatInput" type="text" placeholder="Ask about a document…" autocomplete="off">
+    <button id="sendBtn">Send</button>
+  </div>
+</div>
+
+<script src="documents.js"></script>
+<script src="topics.js"></script>
+<script src="engine.js"></script>
+<script>
+  const chatWindow = document.getElementById("chatWindow");
+  const chatInput = document.getElementById("chatInput");
+  const sendBtn = document.getElementById("sendBtn");
+
+  function mdToHtml(text) {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+      .replace(/\n/g, "<br>");
+  }
+
+  function addMessage(role, text) {
+    const row = document.createElement("div");
+    row.className = "msg-row " + role;
+    const bubble = document.createElement("div");
+    bubble.className = "bubble " + role;
+    bubble.innerHTML = mdToHtml(text);
+    row.appendChild(bubble);
+    chatWindow.appendChild(row);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
+  function addQuickReplies(options) {
+    if (!options || !options.length) return;
+    const wrap = document.createElement("div");
+    wrap.className = "quick-replies";
+    options.forEach((opt) => {
+      const btn = document.createElement("button");
+      btn.className = "qr-btn";
+      btn.textContent = opt;
+      btn.onclick = () => handleUserInput(opt);
+      wrap.appendChild(btn);
+    });
+    chatWindow.appendChild(wrap);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
+  function handleUserInput(text) {
+    if (!text.trim()) return;
+    addMessage("user", text);
+    chatInput.value = "";
+    setTimeout(() => {
+      const result = respond(text);
+      addMessage("bot", result.text);
+      addQuickReplies(result.quickReplies);
+    }, 350);
+  }
+
+  sendBtn.onclick = () => handleUserInput(chatInput.value);
+  chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") handleUserInput(chatInput.value);
+  });
+
+  // Opening turn
+  addMessage("bot", GREETING);
+  addQuickReplies(TOPICS.map((t) => t.label));
+</script>
+
+</body>
+</html>
