@@ -2,7 +2,7 @@
 
 A working chatbot demo built to prepare for the **Manager of AI Transformation** role at Mayer Brown. It answers questions about a fictional M&A due-diligence matter — summarizing documents, checking review status, explaining AI-flagged risks, and routing items for attorney approval — using a **low-code, config-driven design that mirrors how Microsoft Copilot Studio structures a real agent.**
 
-**[▶ Live demo](#)** — *replace with your GitHub Pages URL after publishing (see [Publishing](#publishing-to-github-pages) below)*
+**[▶ Live demo](https://shalineesinghvit12-source.github.io/deal-room-assistant/)**
 
 ![Deal Room Assistant screenshot](docs/screenshot.png)
 
