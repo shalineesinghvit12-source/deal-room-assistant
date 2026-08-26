@@ -29,6 +29,13 @@ test("lists matter-wide review status", () => {
   assert.match(result.text, /Pending attorney review/);
 });
 
+test("resolves a cited MSA section to its controlled risk flag", () => {
+  const assistant = loadAssistant();
+  const result = assistant.respond("Why was section 14.2 flagged?");
+
+  assert.match(result.text, /Deal-blocking termination right/);
+});
+
 test("asks for clarification when a document is missing", () => {
   const assistant = loadAssistant();
   const result = assistant.respond("Explain a risk flag");
