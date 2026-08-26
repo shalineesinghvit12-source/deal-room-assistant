@@ -144,6 +144,16 @@ cd deal-room-assistant
 
 Open `index.html` in a modern browser.
 
+## Automated regression tests
+
+The conversation engine has dependency-free Node.js regression tests covering summaries, matter status, clarification, contextual follow-ups, attorney-review routing and safe fallback behavior.
+
+```bash
+npm test
+```
+
+GitHub Actions runs the same test suite for every push to `main` and for pull requests.
+
 ## Architecture boundary
 
 This repository contains a working browser prototype, not a production legal system.
