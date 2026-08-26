@@ -1,4 +1,4 @@
-# Deal Room Assistant — Low-Code Legal AI Chatbot Demo
+# Deal Room Assistant - Low-Code Legal AI Chatbot Demo
 
 A working chatbot demo built to prepare for the **Manager of AI Transformation** role at Mayer Brown. It answers questions about a fictional M&A due-diligence matter — summarizing documents, checking review status, explaining AI-flagged risks, and routing items for attorney approval — using a **low-code, config-driven design that mirrors how Microsoft Copilot Studio structures a real agent.**
 
