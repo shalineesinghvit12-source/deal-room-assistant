@@ -38,7 +38,14 @@ const TOPICS = [
   {
     id: "escalate",
     label: "Escalate for approval",
-    triggers: ["send for approval", "escalate", "needs a human", "route to attorney", "approve this"],
+    triggers: [
+      "send for approval",
+      "for approval",
+      "escalate",
+      "needs a human",
+      "route to attorney",
+      "approve this",
+    ],
     action: "ESCALATE",
   },
 ];
