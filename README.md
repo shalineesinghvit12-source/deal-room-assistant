@@ -10,7 +10,7 @@ A working chatbot demo built to prepare for the **Manager of AI Transformation**
 
 ## Why this exists
 
-The role's job description names a specific stack — Microsoft Copilot, the M365 ecosystem, Power Automate, Power Apps, and legal platforms like iManage, Intapp, and Litera with an explicit emphasis on **low-code delivery**, not custom AI engineering. This project is a portable way to demonstrate that same design pattern outside a Microsoft tenant, since a real Copilot Studio agent can't be publicly shared or opened in a browser.
+The role's job description names a specific stack Microsoft Copilot, the M365 ecosystem, Power Automate, Power Apps, and legal platforms like iManage, Intapp, and Litera with an explicit emphasis on **low-code delivery**, not custom AI engineering. This project is a portable way to demonstrate that same design pattern outside a Microsoft tenant, since a real Copilot Studio agent can't be publicly shared or opened in a browser.
 
 It is **not** a production system, and it deliberately avoids anything that would misrepresent it as one no real client data, no real firm name in the data layer, no vector database, no backend server, and no claim that this *is* Copilot Studio. It's a static, client-side illustration of the same architecture, built to be read, run, and discussed in about five minutes.
 
