@@ -14,7 +14,7 @@ During a transaction, reviewers may need to move between document repositories, 
 
 - Provide one conversational entry point for document summaries, status and risk explanations.
 - Ground every response in a controlled matter-document record.
-- preserve conversational context for follow-up questions.
+- Preserve conversational context for follow-up questions.
 - Keep attorney judgment in the approval path.
 - Make the prototype portable while defining a credible Microsoft 365 production architecture.
 - Produce traceable requirements, design decisions and test evidence.
