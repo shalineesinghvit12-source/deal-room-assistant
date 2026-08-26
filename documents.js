@@ -16,7 +16,7 @@
 const DOCUMENTS = [
   {
     id: "msa",
-    keywords: ["msa", "master supply", "supply agreement", "atlas"],
+    keywords: ["msa", "master supply", "supply agreement", "atlas", "section 14.2", "§14.2"],
     name: "Master Supply & Services Agreement",
     counterparty: "Atlas Industrial Corp.",
     matter: "Project Falcon",
